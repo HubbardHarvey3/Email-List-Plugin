@@ -18,6 +18,25 @@
 if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
+
+register_activation_hook(__FILE__, 'email_list_create_table');
+function email_list_create_table()
+{
+	global $wpdb;
+	$table_name = $wpdb->prefix . 'email_list_submissions';
+	$charset_collate = $wpdb->get_charset_collate();
+
+	$sql = "CREATE TABLE $table_name (
+        id mediumint(9) NOT NULL AUTO_INCREMENT,
+        field1 varchar(255) NOT NULL,
+        field2 varchar(255) NOT NULL,
+        created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        PRIMARY KEY  (id)
+    ) $charset_collate;";
+
+	require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+	dbDelta($sql);
+}
 /**
  * Registers the block using a `blocks-manifest.php` file, which improves the performance of block type registration.
  * Behind the scenes, it also registers all assets so they can be enqueued
