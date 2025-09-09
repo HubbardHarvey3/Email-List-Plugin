@@ -14,7 +14,34 @@ return array(
 			
 		),
 		'supports' => array(
-			'html' => false
+			'html' => false,
+			'color' => array(
+				'text' => true,
+				'background' => true,
+				'button' => true,
+				'link' => true
+			),
+			'spacing' => array(
+				'margin' => true,
+				'padding' => true
+			),
+			'align' => true,
+			'typography' => array(
+				'fontSize' => true,
+				'textAlign' => true,
+				'lineHeight' => true
+			)
+		),
+		'attributes' => array(
+			'style' => array(
+				'type' => 'object'
+			),
+			'fontSize' => array(
+				'type' => 'string'
+			),
+			'textAlign' => array(
+				'type' => 'string'
+			)
 		),
 		'textdomain' => 'email-list',
 		'editorScript' => 'file:./index.js',

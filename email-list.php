@@ -28,8 +28,9 @@ function email_list_create_table()
 
 	$sql = "CREATE TABLE $table_name (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
-        field1 varchar(255) NOT NULL,
-        field2 varchar(255) NOT NULL,
+        first_name varchar(255) NOT NULL,
+        last_name varchar(255) NOT NULL,
+        email varchar(255) NOT NULL,
         created_at datetime DEFAULT CURRENT_TIMESTAMP NOT NULL,
         PRIMARY KEY  (id)
     ) $charset_collate;";

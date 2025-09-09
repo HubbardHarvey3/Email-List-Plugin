@@ -30,9 +30,41 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit() {
+	const blockProps = useBlockProps();
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __( 'Email List Plugin – hello from the editor!', 'email-list' ) }
-		</p>
+		<>
+			<form {...blockProps}>
+				<p>
+					<label htmlFor="first_name">
+						{__('First Name', 'email-list-plugin')}
+						<span className="required">*</span>
+					</label>
+					<input id="first_name" type="text" />
+				</p>
+				<p>
+					<label htmlFor="last_name">
+						{__('Last Name', 'email-list-plugin')}
+						<span className="required">*</span>
+					</label>
+					<input id="last_name" type="text" />
+				</p>
+				<p>
+					<label htmlFor="email">
+						{__('Email', 'email-list-plugin')}
+						<span className="required">*</span>
+					</label>
+					<input id="email" type="email" />
+				</p>
+				<p className="form-submit wp-block-button">
+					<button
+						className="wp-block-button__link wp-element-button"
+						type="submit"
+					>
+						{__('Submit!!', 'email-list-plugin')}
+					</button>
+				</p>
+			</form>
+		</>
 	);
 }

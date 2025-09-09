@@ -9,7 +9,34 @@
   "description": "A simple form that takes user data and saves it in the db.",
   "example": {},
   "supports": {
-    "html": false
+    "html": false,
+    "color": {
+      "text": true,
+      "background": true,
+      "button": true,
+      "link": true
+    },
+    "spacing": {
+      "margin": true,
+      "padding": true
+    },
+    "align": true,
+    "typography": {
+      "fontSize": true,
+      "textAlign": true,
+      "lineHeight": true
+    }
+  },
+  "attributes": {
+    "style": {
+      "type": "object"
+    },
+    "fontSize": {
+      "type": "string"
+    },
+    "textAlign": {
+      "type": "string"
+    }
   },
   "textdomain": "email-list",
   "editorScript": "file:./index.js",
