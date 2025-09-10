@@ -40,6 +40,7 @@ export default function Edit() {
 						{__('First Name', 'email-list-plugin')}
 						<span className="required">*</span>
 					</label>
+					<br />
 					<input id="first_name" type="text" />
 				</p>
 				<p>
@@ -47,6 +48,7 @@ export default function Edit() {
 						{__('Last Name', 'email-list-plugin')}
 						<span className="required">*</span>
 					</label>
+					<br />
 					<input id="last_name" type="text" />
 				</p>
 				<p>
@@ -54,6 +56,7 @@ export default function Edit() {
 						{__('Email', 'email-list-plugin')}
 						<span className="required">*</span>
 					</label>
+					<br />
 					<input id="email" type="email" />
 				</p>
 				<p className="form-submit wp-block-button">

@@ -80,3 +80,8 @@ function email_list_email_list_block_init()
 	}
 }
 add_action('init', 'email_list_email_list_block_init');
+
+// Include admin-specific functionality.
+if (is_admin()) {
+	require_once __DIR__ . '/includes/admin-dashboard.php';
+}
