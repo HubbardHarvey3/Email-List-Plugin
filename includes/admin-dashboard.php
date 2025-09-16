@@ -34,30 +34,46 @@ function email_list_admin_page_content()
 {
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'email_list_submissions';
-	$submissions = $wpdb->get_results("SELECT * FROM $table_name ORDER BY created_at DESC");
-?>
+
+	// Handle delete action.
+	if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['submission'])) {
+		// Verify nonce.
+		if (isset($_GET['_wpnonce']) && wp_verify_nonce(sanitize_text_field(wp_unslash($_GET['_wpnonce'])), 'el_delete_submission')) {
+			$id = absint($_GET['submission']);
+			$wpdb->delete($table_name, ['id' => $id], ['%d']);
+
+			// Add a success notice.
+			add_action(
+				'admin_notices',
+				function () {
+					?>
+					<div class="notice notice-success is-dismissible">
+						<p><?php esc_html_e('Submission deleted successfully!', 'email-list-plugin'); ?></p>
+					</div>
+					<?php
+				}
+			);
+		} else {
+			// Nonce verification failed.
+			wp_die(esc_html__('Security check failed.', 'email-list-plugin'));
+		}
+	}
+
+	// Create an instance of our list table class.
+	$list_table = new Email_List_Submissions_List_Table();
+	// Fetch, prepare, and sort the data.
+	$list_table->prepare_items();
+	?>
 	<div class="wrap">
 		<h1><?php esc_html_e('Email List Submissions', 'email-list-plugin'); ?></h1>
-		<table class="wp-list-table widefat fixed striped">
-			<thead>
-				<tr>
-					<th scope="col"><?php esc_html_e('First Name', 'email-list-plugin'); ?></th>
-					<th scope="col"><?php esc_html_e('Last Name', 'email-list-plugin'); ?></th>
-					<th scope="col"><?php esc_html_e('Email', 'email-list-plugin'); ?></th>
-					<th scope="col"><?php esc_html_e('Date', 'email-list-plugin'); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($submissions as $submission) : ?>
-					<tr>
-						<td><?php echo esc_html($submission->first_name); ?></td>
-						<td><?php echo esc_html($submission->last_name); ?></td>
-						<td><?php echo esc_html($submission->email); ?></td>
-						<td><?php echo esc_html($submission->created_at); ?></td>
-					</tr>
-				<?php endforeach; ?>
-			</tbody>
-		</table>
+		<?php
+		// Display admin notices (like our success message).
+		do_action('admin_notices');
+		?>
+		<?php
+		// Render the list table.
+		$list_table->display();
+		?>
 	</div>
 <?php
 }

@@ -83,5 +83,6 @@ add_action('init', 'email_list_email_list_block_init');
 
 // Include admin-specific functionality.
 if (is_admin()) {
+	require_once __DIR__ . '/includes/class-submissions-list-table.php';
 	require_once __DIR__ . '/includes/admin-dashboard.php';
 }
